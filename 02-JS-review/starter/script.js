@@ -142,3 +142,110 @@ function getBooks() {
 function getBook(id) {
   return data.find((d) => d.id === id);
 }
+
+const book = getBook(3);
+
+// name must be exactly the same as in book, order does NOT matter
+const { hasMovieAdaptation, author, pages, genres, title } = book;
+title;
+author;
+pages;
+genres;
+hasMovieAdaptation;
+
+const primaryGenre = genres[0];
+const secondaryGenre = genres[1];
+
+const [a, b, ...others] = genres;
+a;
+b;
+others;
+
+const newGeneres = [...genres, "lol", ...genres];
+newGeneres;
+
+//Overwrite, you can put ...book at the end, but it might not make sense. if you want to replace pages by a new value,
+const updatedBook = { ...book, pages: 300, movieDate: "2001-12-9" };
+updatedBook;
+
+//template literal
+const summary = `abc ${1 + 3}`;
+
+summary;
+
+const getYear = (str) => str.split("_")[0];
+
+const year = getYear("1921_1");
+year;
+
+console.log(true && false);
+console.log(true && "lol");
+console.log(false && "lol");
+
+//Nullish coalescing operator
+console.log(null || 1);
+console.log(undefined ?? 1);
+
+console.log(true ?? 1);
+console.log(false ?? 1);
+
+console.log("lol" ?? 1);
+
+//https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Optional_chaining
+function getTotalReviewCount(book) {
+  const goodreads = book?.reviews?.goodreads?.reviewsCount ?? 0;
+  const librarything = book?.reviews?.librarything?.reviewsCount ?? 0;
+  return goodreads + librarything;
+}
+
+const reviewCount = getTotalReviewCount(book);
+reviewCount;
+
+//map, filter, reduce
+[12, 3, 3, 4, 54].map((e, i) => e * 2);
+
+const books = getBooks();
+
+const titles = books.map((b) => b.title);
+titles;
+
+books;
+
+console.log(book);
+
+const essentialData = books.map((book) => ({
+  title: book.title,
+  author: book.author,
+  reviewCount: getTotalReviewCount(book),
+}));
+essentialData;
+
+const longBooks = books
+  .filter((book) => book.pages > 500)
+  .filter((book) => book.hasMovieAdaptation);
+
+longBooks;
+
+const adventureBooks = books
+  .filter((book) => book.genres.includes("adventure"))
+  .map((book) => book.title);
+
+adventureBooks;
+
+const pagesAllBooks = books.reduce((sum, book) => sum + book.pages, 0);
+pagesAllBooks;
+
+// arr is also mutated.
+const arr = [2, 3, 1, 9, 27, 5];
+
+const sorted = arr.sort((a, b) => a - b);
+sorted;
+arr;
+
+const arr1 = [2, 3, 1, 9, 27, 5];
+const sorted1 = arr1.slice().sort((a, b) => a - b);
+sorted1;
+arr1;
+
+const sortedByPages = books.slice().sort((a, b) => b.pages - a.pages);
+sortedByPages;
