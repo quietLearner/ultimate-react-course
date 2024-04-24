@@ -6,6 +6,17 @@ const messages = [
   "Invest your new income 🤑",
 ];
 
+function Button({ textColor, bgColor, onClick, children }) {
+  return (
+    <button
+      onClick={onClick}
+      style={{ backgroundColor: textColor, color: bgColor }}
+    >
+      {children}
+    </button>
+  );
+}
+
 const App = () => {
   //  const step = 3;
   //state
@@ -59,18 +70,13 @@ const App = () => {
           </p>
 
           <div className="buttons">
-            <button
-              onClick={handlePrevious}
-              style={{ backgroundColor: "#7950f2", color: "#fff" }}
-            >
-              Previous
-            </button>
-            <button
-              onClick={handleNext}
-              style={{ backgroundColor: "#7950f2", color: "#fff" }}
-            >
-              Next
-            </button>
+            <Button textColor="#7950f2" bgColor="#fff" onClick={handlePrevious}>
+              <span>👈</span>Previous
+            </Button>
+
+            <Button textColor="#7950f2" bgColor="#fff" onClick={handleNext}>
+              Next<span>👉</span>
+            </Button>
           </div>
         </div>
       )}
